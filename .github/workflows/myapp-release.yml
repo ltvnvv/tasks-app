@@ -73,7 +73,7 @@ jobs:
         IMAGE_TAG: ${{ needs.release_env.outputs.image_tag }}
       run: |
         envsubst < $GITHUB_WORKSPACE/k8s/deployment.yml > $GITHUB_WORKSPACE/k8s/deployment-release.yaml
-        cat deployment-release.yaml
+        cat $GITHUB_WORKSPACE/k8s/deployment-release.yaml
 
     - name: Deploy to Kubernetes
       run: |
