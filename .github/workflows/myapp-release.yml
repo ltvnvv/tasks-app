@@ -68,7 +68,14 @@ jobs:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
+    - name: Substitute variables
+      env:
+        IMAGE_TAG: ${{ needs.release_env.outputs.image_tag }}
+      run: |
+        envsubst < $GITHUB_WORKSPACE/k8s/deployment.yml > $GITHUB_WORKSPACE/k8s/deployment-release.yaml
+        cat deployment.yaml  # Для отладки
+
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f $GITHUB_WORKSPACE/k8s/deployment.yml
+        kubectl apply -f $GITHUB_WORKSPACE/k8s/deployment-release.yaml
         kubectl rollout status deployment/myapp

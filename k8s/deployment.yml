@@ -17,7 +17,7 @@ spec:
         app: myapp
     spec:
       containers:
-        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - image: ltvnvv/myapp:${IMAGE_TAG}
           imagePullPolicy: IfNotPresent
           name: myapp
 
